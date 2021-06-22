@@ -1,30 +1,19 @@
 package main
 
 import (
-	"fmt"
-	"strconv"
-	"strings"
-
 	"github.com/starlightromero/bmi-calc/info"
 )
 
 func main() {
-	fmt.Println(info.MainTitle)
-	fmt.Println(info.Separator)
+	info.PrintWelcome()
 
-	fmt.Print(info.WeightPrompt)
-	weightInput, _ := reader.ReadString('\n')
+	weight, height := getUserMetrics()
 
-	fmt.Print(info.HeightPrompt)
-	heightInput, _ := reader.ReadString('\n')
+	bmi := calculateBMI(weight, height)
 
-	weightInput = strings.Replace(weightInput, "\n", "", -1)
-	heightInput = strings.Replace(heightInput, "\n", "", -1)
+	printBMI(bmi)
+}
 
-	weight, _ := strconv.ParseFloat(weightInput, 64)
-	height, _ := strconv.ParseFloat(heightInput, 64)
-
-	bmi := (weight / (height * height)) * 703
-
-	fmt.Printf("Your BMI: %.2f", bmi)
+func calculateBMI(weight, height float64) float64 {
+	return (weight / (height * height)) * 703
 }
